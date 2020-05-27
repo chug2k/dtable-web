@@ -1,0 +1,108 @@
+{% load seahub_tags i18n staticfiles %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+<title>{% block sub_title %}{% endblock %}{{ site_title }}</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{% trans "File Collaboration Team Organization" %}" />
+{% block viewport %}
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+{% endblock %}
+{% block extra_ogp_tags %}{% endblock %}
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<link rel="shortcut icon" href="{{ MEDIA_URL }}{{ favicon_path }}" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/dtable-font.css?v={{ version }}" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/seafile-ui.css" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/seahub_python.css?t=1398068110" />
+{% if branding_css != '' %}<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}{{ branding_css }}" />{% endif %}
+{% if enable_branding_css %}<link rel="stylesheet" type="text/css" href="{% url 'custom_css' %}" />{% endif %}
+</head>
+{% block extra_style %}
+<style type="text/css">
+html, body, #wrapper { height:100%; }
+#wrapper {
+    background: url('{{ MEDIA_URL }}{{login_bg_image_path}}') center top no-repeat scroll;
+    background-size: cover;
+    padding-top:1px;
+}
+
+#lang {
+    margin:0;
+}
+
+#lang-context {
+    font-weight:normal;
+    font-size: 12px;
+}
+
+#lang-context-selector {
+    text-align:left;
+}
+
+.dtable-container-fluid {
+  padding-top: 70px;
+}
+
+{% block private_style %} {% endblock %}
+</style>
+{% endblock %}
+<body>
+  <div id="wrapper" class="{{ LANGUAGE_CODE }} d-flex flex-column">
+    <div id="header" class="hide">
+        {# for non-logged-in user #}
+        <div id="lang" class="pl-3">
+          <a href="#" id="lang-context" data-lang="{{ LANGUAGE_CODE }}">{{ LANGUAGE_CODE|language_name_local|capfirst }} <span class="dtable-font dtable-icon-drop-down"></span></a>
+          <div id="lang-context-selector" class="sf-popover hide">
+            <ul class="sf-popover-con">
+              {% for LANG in LANGUAGES %}
+              <li><a href="{% url 'i18n' %}?lang={{ LANG.0 }}">{{ LANG.1 }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+    </div>
+    <div id="main" class="container-fluid dtable-container-fluid">
+      <img class="login-panel-logo" src="{{ MEDIA_URL }}{{ logo_path }}" title="{{ site_title }}" alt="logo" height="40" />
+      {% block main_content %}
+      {% endblock %}
+    </div>
+  </div>
+  <script type="text/javascript">
+    var SEAFILE_GLOBAL = {
+        csrfCookieName: '{{ CSRF_COOKIE_NAME }}'
+    };
+    var app = {
+        ui : {
+            currentDropdown: false,
+            currentHighlightedItem: false,
+            freezeItemHightlight: false
+        }
+    }
+    </script>
+    <script type="text/javascript" src="{% static "scripts/lib/jquery.min.js" %}" id="jquery"></script>{# 'id="jquery"' is for pdf file view with pdf2html #}
+    <script type="text/javascript">
+      {# for non-logged-in user #}
+        (function() {
+            var lang_context = $('#lang-context'),
+                lang_selector = $('#lang-context-selector');
+
+            lang_context.parent().css({'position':'relative'});
+
+            lang_context.on('click', function() {
+                lang_selector.toggleClass('hide');
+                return false;
+            });
+
+            $(document).on('click', function(e) {
+                var element = e.target || e.srcElement;
+                if (element.id != 'lang-context-selector' && element.id != 'lang-context') {
+                    lang_selector.addClass('hide');
+                }
+            });
+        })();
+    
+    </script>
+    {% block extra_script %}{% endblock %}
+</body>
+</html>

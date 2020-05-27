@@ -1,0 +1,14 @@
+.system-dtable-font {
+  font-size: 24px;
+  color: #999;
+}
+
+.dtable-dropdown-more {
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #888;
+  font-size: 0.875rem;
+}

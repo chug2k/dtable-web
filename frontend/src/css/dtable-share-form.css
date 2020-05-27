@@ -1,0 +1,65 @@
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+#wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+#main {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.form-header {
+  height: 100px;
+  display: flex;
+  background-color: #fff;
+}
+
+.form-header .form-header-title {
+  height: 100px;
+  line-height: 100px;
+  width: 670px;
+  margin: 0 auto;
+}
+
+.form-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  min-height: 0;
+  overflow: auto;
+  padding: 40px 0;
+}
+
+.form-content .form-items-container {
+  display: flex;
+  flex-direction: column;
+  width: 670px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+}
+
+.form-content .compose-editor {
+  margin-bottom: 30px;
+}
+
+.form-items-container .remark-editor-content .remark-content-tip {
+  width: 100%;
+  background: #fff;
+  min-height: 4rem;
+  padding: 9px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+

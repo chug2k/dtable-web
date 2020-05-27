@@ -1,0 +1,26 @@
+[main]
+host = https://www.transifex.com
+
+[seatable.dtable-json]
+file_filter = media/locales/<lang>/dtable.json
+source_file = media/locales/en/dtable.json
+source_lang = en_US
+type = KEYVALUEJSON
+
+[seatable.seafile-editor-json]
+file_filter = media/locales/<lang>/seafile-editor.json
+source_file = media/locales/en/seafile-editor.json
+source_lang = en_US
+type = KEYVALUEJSON
+
+[seatable.djangopo]
+file_filter = locale/<lang>/LC_MESSAGES/django.po
+source_file = locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[seatable.djangojspo]
+file_filter = locale/<lang>/LC_MESSAGES/djangojs.po
+source_file = locale/en/LC_MESSAGES/djangojs.po
+source_lang = en
+type = PO

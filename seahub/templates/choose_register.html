@@ -1,0 +1,31 @@
+{% extends "base_clean.html" %}
+{% load i18n %}
+{% block sub_title %}{% trans "Signup" %} - {% endblock %}
+
+{% block main_content %}
+<div class="login-panel-outer-container">
+    <div class="login-panel">
+        <h1 class="login-panel-hd">{% trans "Signup" %}</h1>
+        <button id="personal" class="submit btn btn-primary btn-block">
+            <span class="dtable-font dtable-icon-personal pr-2"></span>
+            {% trans "Create a personal account" %}
+        </button>
+        <button id="org" class="submit btn btn-primary btn-block">
+            <span class="dtable-font dtable-icon-organization1 pr-2"></span>
+            {% trans "Create an organization account" %}
+        </button>
+    </div>
+</div>
+{% include "police_service_link.html" %}
+{% endblock %}
+
+{% block extra_script %}{{block.super}}
+<script type="text/javascript">
+$('#personal').on('click', function() {
+    location.href = "{% url 'registration_register'%}";
+});
+$('#org').on('click', function() {
+    location.href = "{% url 'org_register'%}";
+});
+</script>
+{% endblock %}

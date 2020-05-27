@@ -1,0 +1,430 @@
+.side-panel-north {
+  background-color: #fff;
+  box-shadow: 0 2px 3px #eee;
+}
+
+.main-panel-north {
+  background-color: #fff;
+  box-shadow: -1px 5px 3px -3px #eee
+}
+
+.dtable-header {
+  height: 50px;
+}
+
+.dtable-header .dtable-text {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  color: #555555;
+}
+
+.dtable-side-nav {
+  padding: 12px;
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.dtable-side-nav .dtable-nav-list {
+  flex-wrap: inherit;
+  height: auto;
+  border-bottom: none;
+  padding-top: 8px;
+}
+
+.dtable-nav-list .dtable-nav-item {
+  line-height: 38px;
+  border-radius: 0.25rem;
+}
+
+.dtable-nav-list .dtable-nav-item .dtable-nav-link {
+  margin: 0;
+  width: 100%;
+  color: #999999;
+  padding: 0 0.25rem;
+}
+
+.dtable-nav-list .dtable-nav-item .dtable-nav-link:hover {
+  background-color: #f5f5f5;
+}
+
+.dtable-nav-list .dtable-nav-item.active .dtable-nav-link {
+  color: #fff;
+  background-color: #F4A74C;
+}
+
+.dtable-nav-list .dtable-nav-link .nav-icon {
+  padding-right: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.dtable-nav-list .dtable-nav-link .nav-text {
+  color: #000;
+}
+
+.dtable-nav-list .dtable-nav-item.active .dtable-nav-link .nav-text {
+  color: #fff;
+}
+
+.dtable-header .common-toolbar {
+  display: flex;
+  margin-left: auto;
+}
+
+.dtable-header .common-toolbar>div {
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.dtable-center .cur-view-header {
+  line-height: 50px;
+  font-size: 1.5rem;
+  padding: 0 16px;
+}
+
+.dtable-center .cur-view-header .cur-view-title {
+  border-bottom: 1px solid #eee;
+}
+
+.dtable-center .dtable-add-btn {
+  width: 8rem;
+}
+
+.dtable-center .dtable-org-title {
+  font-size: 20px;
+}
+
+.workspace {
+  margin: 0.5rem 0;
+}
+
+.workspace:last-child {
+  margin-bottom: 150px;
+}
+
+.workspace .workspace-name {
+  font-weight: 400;
+  color: #202428;
+  padding: 2px;
+  border-bottom: 2px solid #e3e3e3;
+  font-size: 1rem;
+}
+
+.workspace .workspace-name-container .dropdown-toggle:after {
+  color: #929292;
+}
+
+.workspace .workspace-name-container:hover .workspace-name {
+  border-bottom: 2px solid #202428;
+}
+
+.workspace .workspace-name-container:hover .dropdown-toggle:after {
+  color: #202428;
+}
+
+.workspace .add-table-btn {
+  width: 42px;
+  height: 42px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  display: flex;
+}
+
+.workspace .add-table-btn:hover {
+  background-color: #e3e3e3;
+}
+
+.workspace .add-table-btn i {
+  margin: auto;
+  font-size: 18px;
+  color: #929292;
+}
+
+.workspace .add-table-btn:hover i {
+  color: #202428;
+}
+
+.add-table-btn-container {
+  align-items: center;
+  margin: 1rem 0 0.75rem;
+}
+
+.add-table-btn-container span {
+  margin-left: 1rem;
+}
+
+.add-workspace {
+  color: #929292;
+}
+
+.add-workspace:hover {
+  color: #202428;
+}
+
+.workspace .table-heading {
+  padding: 0.25rem;
+}
+
+.workspace .table-heading-border {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.workspace .dtable-icon-style{
+  color: #949494;
+  font-size: 20px;
+}
+
+.workspace .add-table-range:hover {
+  background-color: #f8f8f8;
+}
+
+.workspace .table-item-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  min-height: 0;
+}
+
+.workspace .table-item-container  .table-personal-tip {
+  flex: 1;
+  padding: 0.5rem;
+  text-align: center;
+  border-bottom: 1px solid #e6e6e6;
+  color: #ccc;
+  font-size: 14px;
+}
+
+.workspace .table-item-container .table-item {
+  width: 48%;
+  height: 2.5625rem;
+  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 4px
+}
+
+.workspace .table-item-container .dataset-item {
+  width: 100%;
+  border-radius: 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.workspace .table-item-container .dataset-item:first-child {
+  border-top: 1px solid #f0f0f0;
+  margin-top: 0.5rem;
+}
+
+.workspace .table-item-container .dataset-mobile-item {
+  width: 100%;
+  height: 3.125rem;
+  padding: 0.375rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.workspace .dataset-mobile-item .dataset-mobile-icon {
+  width: 12%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.workspace .dataset-mobile-item .dataset-mobile-name {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.workspace .dataset-mobile-item .dataset-mobile-dropdown-menu {
+  width: 8%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.workspace .dataset-item .dataset-icon {
+  width: 5%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.workspace .dataset-item .dataset-name {
+  width: 80%;
+  height: 100%;
+}
+
+.workspace .dataset-item .dataset-dropdown-menu {
+  width: 15%;
+  height: 100%;
+  position: relative;
+}
+
+.workspace .table-item .table-icon {
+  width: 9%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.workspace .table-item .table-name {
+  width: 76%;
+  height: 100%;
+}
+
+.workspace .table-item .table-dropdown-menu {
+  width: 15%;
+  height: 100%;
+  text-align: right;
+  position: relative;
+}
+
+.workspace .table-item .table-dropdown-menu .table-dropdown-menu-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-item-more-operation i {
+  color: #999;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.table-item-more-operation a:hover {
+  text-decoration: none;
+}
+
+.table-item-more-operation i:hover {
+  color: #666;
+}
+
+.dtable-menu-toolbar {
+  display: flex;
+  align-items: center
+}
+
+/* activities */
+.activities-title {
+  margin: 20px 0 14px;
+  font-size: 1rem;
+  color: #000;
+}
+
+.activities-view-title {
+  margin: 16px 0 12px;
+  font-size: 1rem;
+  color: #000;
+}
+
+/* snapshots */
+
+.dtable-snapshots-container {
+  overflow: hidden;
+  height: 400px;
+  padding: 0;
+}
+
+.dtable-snapshots-content {
+  padding: 1rem;
+  height: 400px;
+  overflow: auto;
+  pointer-events: all;
+}
+
+/* mobile style */
+.workspace .table-mobile-item-container .table-mobile-item {
+  width: 100%;
+  height: 3.125rem;
+  padding: 0.375rem 1rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.workspace .table-mobile-item-container .table-mobile-item:hover {
+  background-color: #f8f8f8;
+}
+
+.table-mobile-item-container .table-mobile-item .table-mobile-icon {
+  width: 12%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.table-mobile-item-container .table-mobile-item .table-mobile-icon .dtable-font {
+  font-size: 1.5rem;
+  color: #949494;
+}
+
+.table-mobile-item-container .table-mobile-item .table-mobile-name {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.table-mobile-item-container .table-mobile-item .table-mobile-dropdown-menu {
+  width: 8%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.table-mobile-item-container .table-mobile-item .table-mobile-dropdown-menu .table-dropdown-menu-icon {
+  color: #bcbcbc;
+  font-size: 14px;
+  position: relative;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.workspace .table-mobile-padding {
+  padding: 0 1rem;
+}
+
+.mobile-dropdown-item {
+  height: 3.5rem;
+  text-align: left;
+  padding: 0.25rem 1rem;
+}
+
+.mobile-dropdown-item .dtable-font {
+  font-size: 1.25rem;
+  margin-right: 1rem;
+  color: #888888;
+}
+.mobile-dropdown-item .mobile-dropdown-span {
+  font-size: #333333;
+  font-size: 16px;
+}
+.table-name .share-tip,
+.table-mobile-name .share-tip {
+  display: inline-block;
+  height: 20px;
+  padding: 0 6px;
+  margin-left: 6px;
+  border: 1px solid #DBDBDB;
+  border-radius: 15px;
+  font-size: 12px;
+  color: #999999;
+  background-color: #fff;
+  user-select: none;
+}
+
+.table-name .star {
+  padding-left: 8px;
+  color: #999999;
+}

@@ -1,0 +1,151 @@
+{% extends "base_clean.html" %}
+{% load i18n %}
+{% block sub_title %}{% trans "Signup" %} - {% endblock %}
+
+{% block extra_style %}{{block.super}}
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/bootstrap.popover.min.css" />
+{% endblock %}
+
+{% block private_style %}
+.login-form-weixin-line {
+    width: 30%;
+    border-bottom: 1px solid #a6a6a6;
+}
+{% endblock %}
+
+{% block main_content %}
+<div class="login-panel-outer-container">
+    <div class="login-panel">
+        <h1 class="login-panel-hd">{% trans "Signup" %}</h1>
+        {% if request.user.is_authenticated %}
+        <p class="text-center">{% trans "Welcome back, you are already signed in." %} <a href="{{ redirect_to }}" class="normal">{% trans "Return to the homepage" %}</a></p>
+        {% else %}
+        <form action="" method="post" id="signup-form">{% csrf_token %}
+            {% if form.name.field.required %}
+            {{ form.name }} {{ form.name.errors }}
+            {% endif %}
+
+            {{ form.email }}            {{ form.email.errors }}
+            {{ form.password1 }}        {{ form.password1.errors }}
+            <div id="pwd_strength"></div>
+            {{ form.password2 }}        {{ form.password2.errors }}
+
+            {% if form.department.field.required %}
+            <label for="id_department">{% trans "Department" %}</label>
+            {{ form.department }}       {{ form.department.errors }}
+            {% endif %}
+
+            {% if form.telephone.field.required %}
+            <label for="id_telephone">{% trans "Telephone" %}</label>
+            {{ form.telephone }}        {{ form.telephone.errors }}
+            {% endif %}
+
+            {% if form.note.field.required %}
+            <label for="id_note">{% trans "Note" %}</label>
+            {{ form.note }}             {{ form.note.errors }}
+            {% endif %}
+
+            <p class="error hide"></p>
+            <button type="submit" class="submit btn btn-primary btn-block">{% trans "Sign Up" %}</button>
+        </form>
+
+        {% if enable_weixin %}
+        <div class="mt-5">
+            <span class="d-flex align-items-center justify-content-center">
+                <span class="mr-2 login-form-weixin-line"></span>
+                <span style="color: #a6a6a6">
+                    {% trans "Signup with" %}
+                </span>
+                <span class="ml-2 login-form-weixin-line"></span>
+            </span>
+            <div class="d-flex justify-content-center mt-4">
+                <a href="{{ SITE_ROOT }}weixin/oauth-login/">
+                    <img src="{{MEDIA_URL}}img/weixin.png" width="32" alt="" title="{% if LANGUAGE_CODE == 'zh-cn' %}微信{% else %}WeChat{% endif %}" />
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="login-panel-bottom-container">
+            {# language will be shown here #}
+        </div>
+        {% endif %}
+    </div>
+    {% include "police_service_link.html" %}
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script type="text/javascript" src="{{MEDIA_URL}}js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$('.login-panel-bottom-container').append($('#lang').removeClass('fright'));
+
+$('#lang-context').on('click', function() {
+    var langTop = $('#lang').offset().top;
+    var langSelectorTop;
+    var langSelectorHeight = $('#lang-context-selector .sf-popover-con').outerHeight();
+    if (langSelectorHeight > langTop) {
+        langSelectorTop = '-' + (langTop - 5) + 'px';
+    } else {
+        langSelectorTop = '-' + (langSelectorHeight + 5) + 'px';
+    }
+    $('#lang-context-selector').css({
+        'top': langSelectorTop,
+        'right': 0
+    });
+    $('#lang-context-selector .sf-popover-con').css({
+        'max-height': $('#lang').offset().top - 10
+    });
+});
+{% if strong_pwd_required %}
+{% include "snippets/password_strength_js.html" %}
+var passwd_tip = "{% blocktrans %}Passwords must have at least {{min_len}} characters and contain {{level}} of the following: uppercase letters, lowercase letters, numbers, and symbols.{% endblocktrans%}";
+$("#id_password1")
+.popover({ // bootstrap plugin 'popover'
+    container: 'body',
+    content: passwd_tip,
+    template: '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',
+    trigger: 'focus'
+})
+.on('keyup', function() {
+    var pwd = $(this).val();
+    if ($.trim(pwd)) {
+        var level = getStrengthLevel(pwd);
+        showStrength(level);
+    } else {
+        $("#pwd_strength").html("");
+    }
+});
+{% endif %}
+
+$('#signup-form').on('submit', function(){
+    var email = $.trim($('input[name="email"]').val()),
+        pwd1 = $.trim($('input[name="password1"]').val()),
+        pwd2 = $.trim($('input[name="password2"]').val());
+
+        if (!email) {
+            $('.error').html("{% trans "Email cannot be blank" %}").removeClass('hide');
+            return false;
+        }
+        if (!pwd1) {
+            $('.error').html("{% trans "Password cannot be blank" %}").removeClass('hide');
+            return false;
+        }
+        if (!pwd2) {
+            $('.error').html("{% trans "Please enter the password again" %}").removeClass('hide');
+            return false;
+        }
+        if (pwd1 != pwd2) {
+            $('.error').html("{% trans "Passwords don't match" %}").removeClass('hide');
+            return false;
+        }
+        {% if strong_pwd_required %}
+            var level = getStrengthLevel(pwd1);
+            if (level < {{level}}) {
+                $('.error').html(passwd_tip).removeClass('hide');
+                return false;
+            }
+        {% endif %}
+   });
+</script>
+{% endblock %}

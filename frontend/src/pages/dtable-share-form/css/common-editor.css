@@ -1,0 +1,22 @@
+.cell-editor {
+  display: flex;
+  width: 100%;
+}
+
+.cell-editor .form-control {
+  border: 1px solid #AEAEAE;
+}
+
+.text-editor-container {
+  width: 100%;
+}
+
+.checkbox-editor-container .checkbox {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-left: 50%;
+  transform: translate(-10px, 0);
+  box-shadow: none;
+  outline: none;
+}

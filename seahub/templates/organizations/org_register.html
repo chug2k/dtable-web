@@ -1,0 +1,61 @@
+{% extends "base_clean.html" %}
+{% load i18n %}
+{% block sub_title %}{% trans "Signup" %} - {% endblock %}
+
+{% block main_content %}
+<div class="login-panel-outer-container">
+    <div class="login-panel">
+        <h1 class="login-panel-hd">{% trans "Signup" %}</h1>
+        {% if request.user.is_authenticated %}
+        <p class="text-center">{% trans "Welcome back, you are already signed in." %} <a href="{{ redirect_to }}" class="normal">{% trans "Return to the homepage" %}</a></p>
+        {% else %}
+        <form action="" method="post" id="signup-form">{% csrf_token %}
+            <input id="org_name" type="text" name="org_name"  placeholder="{% trans "Organization Name" %}" value="{{ form.org_name.value|default_if_none:"" }}" class="input" />
+            {{ form.org_name.errors }}
+
+            {% if form.name.field.required %}
+            <input id="name" type="text" placeholder="{% trans "Admin Name" %}" name="name" maxlength="255" value="{{ form.name.value|default_if_none:"" }}" class="input" />
+            {{ form.name.errors }}
+            {% endif %}
+
+            <input id="email" type="text" name="email" placeholder="{% trans "Admin Email" %}" maxlength="255" value="{{ form.email.value|default_if_none:"" }}" class="input" />
+            {{ form.email.errors }}
+
+            <input id="password1" type="password" placeholder="{% trans "Password" %}" name="password1" value="" class="input" />
+            <input id="password2" type="password" placeholder="{% trans "Confirm Password" %}" name="password2" value="" class="input" />
+
+            {{ form.non_field_errors }}
+            <button type="submit" class="submit btn btn-primary btn-block">{% trans "Submit" %}</button>
+        </form>
+        <div class="login-panel-bottom-container">
+            {# language will be shown here #}
+        </div>
+        {% endif %}
+    </div>
+    {% include "police_service_link.html" %}
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script type="text/javascript">
+$('.login-panel-bottom-container').append($('#lang').removeClass('fright'));
+
+$('#lang-context').on('click', function() {
+    var langTop = $('#lang').offset().top;
+    var langSelectorTop;
+    var langSelectorHeight = $('#lang-context-selector .sf-popover-con').outerHeight();
+    if (langSelectorHeight > langTop) {
+        langSelectorTop = '-' + (langTop - 5) + 'px';
+    } else {
+        langSelectorTop = '-' + (langSelectorHeight + 5) + 'px';
+    }
+    $('#lang-context-selector').css({
+        'top': langSelectorTop,
+        'right': 0
+    });
+    $('#lang-context-selector .sf-popover-con').css({
+        'max-height': $('#lang').offset().top - 10
+    });
+});
+</script>
+{% endblock %}

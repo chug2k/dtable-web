@@ -1,0 +1,44 @@
+{% extends 'email_base.html' %}
+
+{% load i18n seahub_tags %}
+
+{% block email_con %}
+
+<p style="font-size:14px; line-height: 1.5; color:#121214; margin:.2em 0 12px;">{% blocktrans with name=to_user|email2nickname %}Hi, {{ name }}{% endblocktrans %}</p>
+<p style="font-size:14px; line-height: 1.5; color:#434144; margin:.2em 0;">
+{% blocktrans count num=notice_count %}
+You've got 1 new notice on {{ site_name }}:
+{% plural %}
+You've got {{num}} new notices on {{ site_name }}:
+{% endblocktrans %}
+</p>
+
+    <table style="width:100%; margin:12px 0 20px; table-layout:fixed; border-spacing: 0; border-collapse: collapse;">
+        <tr>
+            <th width="9%" style="padding: 5px 3px; border-bottom: 1px solid #eee;"></th>
+            <th width="69%" style="padding: 5px 3px; border-bottom: 1px solid #eee; font-size:13px; text-align: left; font-weight: normal; color: #9c9c9c;">{% trans "Message" %}</th>
+            <th width="22%" style="padding: 5px 3px; border-bottom: 1px solid #eee; font-size:13px; text-align: left; font-weight: normal; color: #9c9c9c;">{% trans "Time" %}</th>
+        </tr>
+        {% for notice in notices %}
+        <tr>
+            <td style="padding:8px 3px 5px; border-bottom: 1px solid #eee; text-align:center; vertical-align:top;"><img src="{{notice.avatar_src}}" width="32" height="32" alt="" style="border-radius:1000px;" /></td>
+            <td style="padding: 5px 3px; border-bottom: 1px solid #eee; font-size: 13px; color: #333; word-wrap: break-word;">
+
+                {% if notice.is_add_user_to_group_msg %}
+                <p style="line-height:1.5; margin:.2em 10px .2em 0;">{% blocktrans with user_url=notice.group_staff_profile_url user=notice.notice_from grp_url=notice.group_url grp_name=notice.group_name %}User <a href="{{url_base}}{{user_url}}">{{user}}</a> has added you to group <a href="{{url_base}}{{grp_url}}">{{grp_name}}</a>{% endblocktrans %}</p>
+
+                {% elif notice.is_share_dtable_to_user_msg %}
+                <p style="line-height:1.5; margin:.2em 10px .2em 0;">{% blocktrans with user=notice.share_user table_name=notice.dtable.name user_url=notice.share_user_profile_url dtable_url=notice.dtable_url %}User <a href="{{url_base}}{{user_url}}">{{user}}</a> has shared table <a href="{{url_base}}{{dtable_url}}">{{table_name}}</a> to you.{% endblocktrans %}</p>
+
+                {% endif %}
+            </td>
+            <td style="padding: 5px 3px; border-bottom: 1px solid #eee; font-size: 13px; color: #333; word-wrap: break-word;">{{ notice.timestamp|date:"Y-m-d G:i:s"}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+<p style="font-size:14px;color:#434144;">
+    {% trans "Go check out at the following page:" %}<br />
+    <a href="{{ url_base }}{% url 'user_notification_list' %}">{{ url_base }}{% url 'user_notification_list' %}</a>
+</p>
+{% endblock %}

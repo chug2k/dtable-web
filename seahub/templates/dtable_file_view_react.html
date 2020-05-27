@@ -1,0 +1,77 @@
+{% load seahub_tags i18n staticfiles %}
+{% load render_bundle from webpack_loader %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+<title>{{ filename }}</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{% trans "File Collaboration Team Organization" %}" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<link rel="shortcut icon" href="{{ MEDIA_URL }}{{ favicon_path }}" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}fontawesome/css/fontawesome-all.min.css" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/dtable-font.css?v={{ version }}" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/seafile-editor-font.css" />
+{% if request.is_mobile or request.is_tablet %}
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/antd-mobile-v2.3.1.min.css" />
+{% endif %}
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/seafile-ui.css" />
+{% render_bundle 'commons' 'css' %}
+{% render_bundle 'viewDataGrid' 'css' %}
+{% if branding_css != '' %}<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}{{ branding_css }}" />{% endif %}
+{% if enable_branding_css %}<link rel="stylesheet" type="text/css" href="{% url 'custom_css' %}" />{% endif %}
+</head>
+
+<body>
+    <div id="wrapper" class="{{ LANGUAGE_CODE }}"></div>
+    <div id="modal-wrapper" class="{{ LANGUAGE_CODE }}"></div>
+    <div id="plugin-wrapper" class="{{ LANGUAGE_CODE }}"></div>
+
+<script type="text/javascript">
+    window.app = {
+        config: {
+            version: '{{ version }}',
+            siteRoot: '{{ SITE_ROOT }}',
+            mediaUrl: '{{ media_url }}',
+            lang: '{{ LANGUAGE_CODE }}',
+            loginUrl: '{{ LOGIN_URL }}',
+            dtableBaiduMapKey: '{{ dtable_baidu_map_key }}',
+            dtableGoogleMapKey: '{{ dtable_google_map_key }}',
+            dtableEnableGeolocationColumn: '{{ dtable_enable_geolocation_column }}'
+        },
+        pageOptions: {
+            server: '{{ service_url }}',
+            csrfToken: "{{ csrf_token }}",
+            name: "{{request.user.username|email2nickname|escapejs}}",
+            username: "{{request.user.username|escapejs}}",
+            contactEmail: "{{request.user.username|email2contact_email|escapejs}}",
+
+            fileName: '{{ filename|escapejs }}',
+            workspaceID: '{{ workspace_id }}',
+            dtableUuid: '{{ dtable_uuid }}',
+            permission: '{{ permission }}',
+            seafileUrl: '{{ seafile_url }}',
+            repoApiToken: '{{ repo_api_token }}',
+            dtableServer: '{{ dtable_server }}',
+            dtableSocket: '{{ dtable_socket }}',
+            canCreateCommonDataset: {% if user.permissions.can_create_common_dataset %}true{% else %}false{% endif %},
+            cloudMode: {% if cloud_mode %} true {% else %} false {% endif %},
+            isOrgContext: {% if org is not None %} true {% else %} false {% endif %},
+            orgName: {% if org is not None %} '{{ org.org_name }}' {% else %} '' {% endif %},
+            seatableMarketUrl: '{{ seatable_market_url }}',
+            canGenerateShareLink: {% if user.permissions.can_generate_share_link %} true {% else %} false {% endif %},
+            canGenerateExternalLink: {% if user.permissions.can_generate_external_link %} true {% else %} false {% endif %},
+            canInvitePeople: {% if enable_guest_invitation and user.permissions.can_invite_guest %} true {% else %} false {% endif %},
+            isAdmin: {% if is_admin %} true {% else %} false {% endif %},
+            assetQuotaExceeded: {% if asset_quota_exceeded %}true{% else %}false{% endif %}
+        }
+     };
+</script>
+<script src="{{ STATIC_URL }}scripts/i18n/{{ LANGUAGE_CODE }}/djangojs.js?v={{ version }}"></script>
+{% render_bundle 'commons' 'js' %}
+{% render_bundle 'runtime' 'js' %}
+{% render_bundle 'viewDataGrid' 'js' %}
+</body>
+</html>
+

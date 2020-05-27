@@ -1,0 +1,82 @@
+{% load seahub_tags i18n staticfiles %}
+{% load render_bundle from webpack_loader %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+<title>{{ site_title }}</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{% trans "File Collaboration Team Organization" %}" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<link rel="shortcut icon" href="{{ MEDIA_URL }}{{ favicon_path }}" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/dtable-font.css?v={{ version }}" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/seafile-ui.css" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/seahub_react.css" />
+{% render_bundle 'commons' 'css' %}
+{% render_bundle 'appDTable' 'css' %}
+{% if branding_css != '' %}<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}{{ branding_css }}" />{% endif %}
+{% if enable_branding_css %}<link rel="stylesheet" type="text/css" href="{% url 'custom_css' %}" />{% endif %}
+</head>
+
+<body>
+    <div id="wrapper" class="{{ LANGUAGE_CODE }}"></div>
+    <div id="modal-wrapper" class="{{ LANGUAGE_CODE }}"></div>
+
+<script type="text/javascript">
+    window.app = {
+        config: {
+            version: '{{ version }}',
+            siteRoot: '{{ SITE_ROOT }}',
+            avatarURL: '{{ avatar_url }}',
+            loginUrl: '{{ LOGIN_URL }}',
+            mediaUrl: '{{ MEDIA_URL }}',
+            lang: '{{ LANGUAGE_CODE }}',
+            logoPath: '{{ logo_path }}',
+            logoWidth: '{{ logo_width }}',
+            logoHeight: '{{ logo_height }}',
+        },
+        pageOptions: {
+            server: '{{ service_url }}',
+            csrfToken: "{{ csrf_token }}",
+            name: "{{request.user.username|email2nickname|escapejs}}",
+            username: "{{request.user.username|escapejs}}",
+            contactEmail: "{{request.user.username|email2contact_email|escapejs}}",
+            isMobile: {% if request.is_mobile %} true {% else %} false {% endif %},
+            isTablet: {% if request.is_tablet %} true {% else %} false {% endif %},
+
+            canAddGroup: {% if user.permissions.can_add_group %} true {% else %} false {% endif %},
+            canAddDTable: {% if user.permissions.can_add_dtable %} true {% else %} false {% endif %},
+            canGenerateShareLink: {% if user.permissions.can_generate_share_link %} true {% else %} false {% endif %},
+            canGenerateExternalLink: {% if user.permissions.can_generate_external_link %} true {% else %} false {% endif %},
+            canInvitePeople: {% if enable_guest_invitation and user.permissions.can_invite_guest %} true {% else %} false {% endif %},
+            
+            fileName: '{{ filename|escapejs }}',
+            filePath: '{{ path|escapejs }}',
+            workspaceID: '{{ workspace_id }}',
+            dtableUuid: '{{ dtable_uuid }}',
+            dtableServer: '{{ dtable_server }}',
+            dtableSocket: '{{ dtable_socket }}',
+            shareLinkExpireDaysMin: '{{ share_link_expire_days_min }}',
+            shareLinkExpireDaysMax: '{{ share_link_expire_days_max }}',
+            shareLinkExpireDaysDefault: '{{ share_link_expire_days_default }}',
+            {% if request.user.is_authenticated and request.cur_note %}
+                curNoteMsg: '{{ request.cur_note.message|urlize|escapejs }}',
+                curNoteID: '{{ request.cur_note.id }}',
+            {% endif %}
+            helpLink: '{{ help_link }}',
+            cloudMode: {% if cloud_mode %} true {% else %} false {% endif %},
+            isOrgContext: {% if org is not None %} true {% else %} false {% endif %},
+            orgName: {% if org is not None %} '{{ org.org_name }}' {% else %} '' {% endif %},
+            showWechatSupportGroup: {% if show_wechat_support_group %} true {% else %} false {% endif %},
+            seatableMarketUrl: '{{ seatable_market_url }}'
+        }
+     };
+</script>
+<script src="{{ STATIC_URL }}scripts/i18n/{{ LANGUAGE_CODE }}/djangojs.js?v={{ version }}"></script>
+{% render_bundle 'commons' 'js' %}
+{% render_bundle 'runtime' 'js' %}
+{% render_bundle 'appDTable' 'js' %}
+</body>
+</html>
+

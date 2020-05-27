@@ -1,0 +1,1 @@
+export const ROW_EXPAND_VIEW = 100;

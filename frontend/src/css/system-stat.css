@@ -1,0 +1,55 @@
+.system-statistic-time-range {
+  margin: 15px 0 25px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+.system-statistic-time-range .system-stat-tool {
+  display: flex;
+  font-size: 13px;
+  color: #333;
+}
+
+.system-statistic-item {
+  border: 1px solid #c5c5c5;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.system-statistic-item:hover {
+  background: #efefef;
+}
+
+.system-stat-tool .item-active {
+  background: #efefef;
+}
+
+.system-statistic-time-range .system-statistic-input-container {
+  display: flex;
+  margin-left: 1rem;
+  align-items: center;
+}
+
+.system-statistic-input-container .system-statistic-input {
+  height: 31px;
+  width: 120px;
+}
+
+.system-statistic-input-container .system-statistic-connect {
+  padding: 0 5px;
+  line-height: 1;
+}
+
+.system-statistic-input-container .system-statistic-button {
+  height: 31px;
+  margin-left: 1rem;
+}
+
+.statistic-calendar table {
+  table-layout: initial;
+}
+
+.statistic-calendar tbody tr {
+  height: 1.75rem;
+}
